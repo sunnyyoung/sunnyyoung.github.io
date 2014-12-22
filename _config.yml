@@ -1,79 +1,26 @@
-# Where things are
-source:       .
-destination:  ./_site
-plugins:      ./_plugins
-layouts:      ./_layouts
-paginate:     8
+#
+#Dependencies
+markdown: redcarpet
+highlighter: pygments
 
-# Handling Reading
-safe:         false
-include:      [".htaccess"]
-exclude:      []
-keep_files:   [".git", ".svn"]
-encoding:     "utf-8"
-markdown_ext: "markdown,mkdown,mkdn,mkd,md"
-textile_ext:  "textile"
+# Permalinks
+#
+# Use of `relative_permalinks` ensures post links from the index work properly.
+permalink: pretty
+relative_permalinks: true
 
-# Filtering Content
-show_drafts:  null
-limit_posts:  0
-future:       true
-unpublished:  false
-
-# Conversion
-markdown:     kramdown
-highlighter:  pygments
-lsi:          false
-excerpt_separator: "\n\n"
-
-# Serving
-detach:       false
-port:         4000
-host:         127.0.0.1
-baseurl:      "" # does not include hostname
-
-# Outputting
-permalink:     date
-paginate_path: /page:num
-timezone:      null
-
-
-#站点基础配置
+# Setup
 title: Sunnyyoung's
-subTitle: 这里没什么好看的.
-description: Sunnyyoung's GitHub Page
-url: http://Sunnyyoung.github.io
-feed: /atom.xml
+tagline: 'Not a bug, it is a feature.'
+description: Sunnyyoung's
+url: http://Sunnyyoung.net
+github: https://github.com/Sunnyyoung
+rss: http://Sunnyyoung.net/atom.xml
+paginate: 5
 
-#菜单配置
-nav:
-  - text: 首页
-    url: /index.html
-  - text: 文章归档
-    url: /archives.html
+# Url
+baseurl: /
+qiniucdn: http://7te821.com1.z0.glb.clouddn.com
 
-#theme config
-themes: /themes/violet
-
-#配置你喜欢的顶部背景图片
-headimg:
-  - item: /themes/violet/images/Banner.jpg
-
-#关注我
-follow:
-  - class: fa-github
-    url: http://github.com/Sunnyyoung
-
-#作者信息
-author:
-  link: http://Sunnyyoung.github.io
-  img: http://cdn.v2ex.com/avatar/408f/bab2/77039_large.png
-
-#评论信息
-disqus:
-  config: true
-  id: Sunnyyoung
-
-duoshuo:
-  config: false
-  id: 
+# Custom vars
+version: 1.0.0

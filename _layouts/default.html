@@ -1,110 +1,49 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>
-        {% if page.title %}
-            {{ page.title }}
-        {% else %}
-            {{ site.title }}
-        {% endif %}         
-    </title>
-    <meta name="generator" content="Jekyll" />
-    <meta name="author" content="{{ site.author.name }}" />
-    <meta name="description" content="{{ page.description }}" />
-    <meta name="keywords" content="{{ page.keywords | join: ',' }}" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <!-- //页面样式 -->
-    <link rel="stylesheet" href="{{ site.url }}{{ site.themes }}/css/style.css" type="text/css" />
-    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="{{ site.feed }}" />
-    <link href="http://libs.useso.com/js/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="shortcut icon" href="{{ site.url }}{{ site.themes }}/images/favicon.png" type="image/x-icon" />
-    <!--[if lt IE 9]><script src="http://libs.useso.com/js/html5shiv/r29/html5.min.js"></script><![endif]-->
-</head>
-<body id="violet">
-    <div class="page-wrapper">
-        <section class="head" id="violet-head">
-            <header class="header" id="violet-header">
-                <h1 class="logo"><a href="{{ site.url }}">{{ site.title }}</a></h1>
-                <h2 class="subtitle">{{ site.subTitle }}</h2>
-            </header>
-            <nav class="nav" id="violet-nav">
-                <ul class="nav-list">
-                    {% for link in site.nav %}
-                    {% assign active = nil %}
-                    {% if page.url == link.url%}
-                      {% assign active = 'nav-item-active' %}
-                    {% endif %}
-                    <li class="nav-item {{ active }}">
-                        <a href="{{ link.url }}">
-                            {{ link.text }}
-                        </a>
-                        {{ indicator }}
-                    </li>
-                    {% endfor %}
-                </ul>
-            </nav>
-        </section>
-        <section class="main" id="violet-main">
-            {{ content }}
-        </section>
-        <footer class="foot" id="violet-foot">
-            <div class="copyright">
-                <div class="copyright-cnt fn-clear">
-                    {% for link in site.follow %}
-                    <a class="follow" href="{{ link.url }}" target="_blank"><i class="fa {{ link.class }}"></i></a>
-                    {% endfor %}
-                    <p class="text">© 2013 Violet Jekyll Theme.Design by <a href="http://www.zhanxin.info">zhanxin.lin</a></p>
-                </div>
-            </div>
-        </footer>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+  {% include head.html %}
+  <body>   
+    {% include sidebar.html %}
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">{{ site.title }}</a>
+            <small>{{ site.tagline }}</small>
+              <a href="{{site.rss}}" target="_blank" class="icons" style="margin-left:15px;"><i class="fa fa-rss"></i></a>
+              <a href="{{site.github}}" target="_blank" class="icons"><i class="fa fa-github"></i></a>
+          </h3>          
+        </div>        
+      </div>      
+      
+        <ul class="entry-meta inline-list" style="text-align: center;">
+        {% if page.url == '/' %}
+          {% for cat in site.categories %}
+            <li><a href="categories/#{{ cat[0] }}" title="{{ cat[0] }}" rel="{{ cat[1].size }}" class="tag">{{ cat[0] }}<span>{{ cat[1].size }}</span></a></li>
+          {% endfor %}
+          {% endif %}  
+        </ul>            
+      <div class="container content" {% if page.url != '/' %}style="margin-top:2rem"{% endif %}>
+        {{ content }}
+      </div>
     </div>
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
 
-    <script type="text/javascript" src="{{ site.url }}{{ site.themes }}/js/jquery-1.8.3.js"></script>
-    <script type="text/javascript" src="{{ site.url }}{{ site.themes }}/js/jquery-scrollTo.js"></script>
-    <script type="text/javascript" src="{{ site.url }}{{ site.themes }}/js/common.js"></script>
-    <script type="text/javascript">
-        var headImgArr = [];
-        {% for imgsrc in site.headimg %}
-            headImgArr.push("{{ imgsrc.item }}");
-        {% endfor %}
-        if(headImgArr.length <= 0) {
-            headImgArr = ["/themes/violet/images/hdbg03.jpg"];
-            var item = 0;
-        } else {
-            var item = Math.floor(Math.random() * (headImgArr.length));
-        }
-        $("#violet-head").css({
-            "background-image": "url(" + headImgArr[item] + ")"
-        });
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
     </script>
-    {% if page.comment %}
-        {% if site.disqus.config %}
-        <script type="text/javascript">
-            //disqus
-            var disqus_shortname = '{{ site.disqus.id }}';
-            (function() {
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] ||
-                    document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-        </script>
-        {% else %}
-            {% if site.duoshuo.config %}
-            <script type="text/javascript">
-                var duoshuoQuery = {short_name:"{{ site.duoshuo.id }}"};
-                (function() {
-                    var ds = document.createElement('script');
-                    ds.type = 'text/javascript';ds.async = true;
-                    ds.src = 'http://static.duoshuo.com/embed.js';
-                    ds.charset = 'UTF-8';
-                    (document.getElementsByTagName('head')[0]
-                    || document.getElementsByTagName('body')[0]).appendChild(ds);
-                })();
-            </script>
-            {% endif %}
-        {% endif %}
-    {% endif %}
-</body>
+  </body>
 </html>

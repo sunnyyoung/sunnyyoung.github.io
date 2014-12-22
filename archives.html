@@ -1,33 +1,33 @@
 ---
-layout: default
-title: 文章归档
-description: 我的归档.
-keywords: GitHub, Archives
-isArchive: true
+layout: page
+title: 归档
+permalink: /archives/
+description: "我的文章归档."
 ---
-<article class="main-article main-article-page">
-    <div class="violet-title">
-        <h3 class="violet-title-item">一共有<span>{{ site.posts | size }}</span>篇文章.</h3>
-    </div>
-    <div class="violet-post">
-        <div class="main-article-contant">
-            {% capture post_year1 %}{{ 'now' | date: '%Y' }}{% endcapture %}
-            <h3>{{ post_year1 }}</h3>
-            <ul class="article-year fn-clear">
-                {% for post in site.posts %}
-                    {% capture post_year2 %}{{ post.date | date: '%Y' }}{% endcapture %}
-                    {% if post_year1 != post_year2 %}
-                        {% assign post_year1 = post_year2 %}
-            </ul>
-            <h3>{{ post_year1 }}</h3>
-            <ul class="article-year fn-clear">
-                    {% endif %}
-                <li>
-                    <span>{{ post.date | date_to_utc | date: '%Y-%m-%d' }}</span>
-                    <a href="{{site.url}}{{ post.url }}">{{ post.title }}</a>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
-</article>
+{% for post in site.posts %}
+    {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
+    {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}
+    {% if forloop.first %}
+    <article>
+      <h2 id="{{ this_year }}-ref">{{ this_year }}</h2>
+      <ul class="related-posts">
+    {% endif %}
+        <li class="entry-title">
+        <h3>
+          <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+          <small>{{ post.date | date: "%Y-%m-%d"  }}</small>
+        </h3>
+          </li>
+    {% if forloop.last %}
+      </ul>
+    </article>
+    {% else %}
+        {% if this_year != next_year %}
+          </ul>
+        </article>
+        <article>
+          <h2 id="{{ next_year }}-ref">{{next_year}}</h2>
+          <ul class="related-posts">
+        {% endif %}
+    {% endif %}
+{% endfor %}
