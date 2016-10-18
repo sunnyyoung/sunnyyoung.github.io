@@ -3,24 +3,17 @@
 markdown: redcarpet
 highlighter: pygments
 
-# Permalinks
-#
-# Use of `relative_permalinks` ensures post links from the index work properly.
-permalink: pretty
-relative_permalinks: true
-
 # Setup
 title: Sunnyyoung's
 tagline: 'Not a bug, it is a feature.'
 description: Sunnyyoung's
-url: http://Sunnyyoung.net
+url: https://Sunnyyoung.net
 github: https://github.com/Sunnyyoung
-rss: http://Sunnyyoung.net/atom.xml
+rss: https://Sunnyyoung.net/atom.xml
 paginate: 5
 
 # Url
 baseurl: /
-qiniucdn: http://7te821.com1.z0.glb.clouddn.com
 
 # Custom vars
 version: 1.0.0
